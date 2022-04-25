@@ -39,12 +39,12 @@ Enter a name (anything works but I prefer to give it a descriptive one based on 
     git config --global user.name "<your-github-username>"
     ```
     The email must be associated to your GitHub account
-6) Copy this repository's URL either from here -> `git@github.com:helrick/git-tutorial.git` or by clicking the **Code** button on the top right of the repository:
+6) Copy this repository's URL either from here -> `git@github.com:helrick/eipp-bioinformatics-nextflow.git` or by clicking the **Code** button on the top right of the repository:
 <img src="./img/url_copy.png">
 
 7) Test cloning this repository on your VM:
     ```bash
     cd ~/Documents
-    git clone git@github.com:helrick/git-tutorial.git
+    git clone git@github.com:helrick/eipp-bioinformatics-nextflow.git
     ```
-    This should create a folder, `git-tutorial` in your `Documents` directory containing the code from this repo.
+    This should create a folder, `eipp-bioinformatics-nextflow` in your `Documents` directory containing the code from this repo.
