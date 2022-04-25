@@ -2,6 +2,7 @@
 
 ## Schedule:
 [Git](#git)<br>
+[Containers](https://docs.google.com/presentation/d/1ryzX9boyJXnyxCSkEHsRvndBIBjJj1V6ywaBQz0gk3Y/edit?usp=sharing)
 
 ## Git
 ### Prerequisites
