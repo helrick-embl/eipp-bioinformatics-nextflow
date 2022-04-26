@@ -165,4 +165,7 @@ You can now push you image via:
 ```bash
 docker push ghcr.io/helrick-embl/eipp-bioinformatics-nextflow/delly:1.0.
 ```
+It should be visible at [https://github.com/orgs/helrick-embl/packages](https://github.com/orgs/helrick-embl/packages):
+
+<img src="./img/org-packages.png">
 
