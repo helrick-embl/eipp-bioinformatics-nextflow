@@ -130,7 +130,7 @@ From within the container you can run your tool command, in this case `delly` an
 
 The `--rm` flag means that you don't want to keep the container around after you exit it. To exit the container you can simply run `exit`.
 
-<img src="./docs/build-image.gif">
+<img src="./img/build-image.gif">
 
 ### 5. Publish Image on GitHub Container Registry
 
