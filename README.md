@@ -2,7 +2,7 @@
 
 ## Schedule:
 [Git](#git)<br>
-[Containers Background](https://docs.google.com/presentation/d/1ryzX9boyJXnyxCSkEHsRvndBIBjJj1V6ywaBQz0gk3Y/edit?usp=sharing)
+[Containers Background](https://docs.google.com/presentation/d/1ryzX9boyJXnyxCSkEHsRvndBIBjJj1V6ywaBQz0gk3Y/edit?usp=sharing)<br>
 [Creating a Docker Image](#creating-a-docker-image)
 
 ## Git
