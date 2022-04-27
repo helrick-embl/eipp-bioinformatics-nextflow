@@ -1,0 +1,6 @@
+{
+	"id": "run_count_1kpbmcs",
+       	"fastqs": "/home/training/Documents/eipp-bioinformatics-nextflow/pbmc_1k_v3_fastqs",
+	"sample": "pbmc_1k_v3",
+	"transcriptome": "/home/training/Documents/eipp-bioinformatics-nextflow/refdata-cellranger-GRCh38-3.0.0"
+}
