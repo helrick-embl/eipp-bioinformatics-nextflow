@@ -3,13 +3,17 @@
 ## Schedule:
 [Git](#git)<br>
 [Containers Background](https://docs.google.com/presentation/d/1ryzX9boyJXnyxCSkEHsRvndBIBjJj1V6ywaBQz0gk3Y/edit?usp=sharing)<br>
-[Creating a Docker Image](#creating-a-docker-image)
+[Creating a Docker Image](#creating-a-docker-image)<br>
+[Run with Test Data](#run-with-test-data)<br>
+[Create Nextflow Pipeline](#create-nextflow-pipeline)
 
 ## Git
 ### Prerequisites
 * GitHub account which you can log in to (please send me a slack message with this account)
 * Record of an email associated to your GitHub account [settings](https://github.com/settings/emails). You should have access to the primary email on your account.
 <img src="./img/email_settings.png">
+* Singularity >= v3.7
+* Nextflow >= v21
 
 ### Set-up
  > **Background**: last summer, GitHub removed support for password authentication, requiring users to use a Personal Access Token (PAT) or to Authenticate with SSH. I prefer the SSH method, so that's what I'll be showing, though other options are possible. This method requires you to generate an SSH-key for every machine from which you'll push code to GitHub (i.e. the cluster, your laptop, any VM). It also requires that when you want to clone a repository, you'll need to  copy a repository's URL (to clone it), you'll need to copy the SSH link rather than the HTTPS link (don't worry if none of this makes sense, we'll go over it).
@@ -169,3 +173,66 @@ It should be visible at [https://github.com/orgs/helrick-embl/packages](https://
 
 <img src="./img/org-packages.png">
 
+# Run with Test Data
+
+You can download a publicly-available PBMC data set from the 10x Genomics and extract it via:
+```bash
+mkdir data && cd data
+wget https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_v3/pbmc_1k_v3_fastqs.tar
+tar -xvf pbmc_1k_v3_fastqs.tar
+```
+
+A transcriptome reference is also provided by 10x Genomics which you can download and extract via:
+```bash
+wget https://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz
+tar -zxvf refdata-cellranger-GRCh38-3.0.0.tar.gz
+```
+We will run with singularity on the command-line first. First you should set your URI variable to point to the image that you've pushed to ghcr. In this example, a cellranger image:
+```bash
+uri=ghcr.io/helrick-embl/eipp-bioinformatics-nextflow/cellranger:1.0
+```
+
+We can then run the image with singularity via:
+```bash
+singularity -s exec "$uri" cellranger count --id=run_count_1kpbmcs --fastqs=./data/pbmc_1k_v3_fastqs --sample=pbmc_1k_v3 --transcriptome=./data/refdata-cellranger-GRCh38-3.0.0
+```
+
+ > **Background**: If you don't have docker on the machine you'd like to run on, you can set a command for singularity to login to docker like so: `SINGULARITY_DOCKER_LOGIN="echo $CR_PAT | docker login ghcr.io -u <github-username> --password-stdin"`
+
+# Create Nextflow Pipeline
+
+Once you've tested that you're able to run the image with Singularity, you can create a Nextflow pipeline to run the test data. By creating a `main.nf` file containing:
+```groovy
+nextflow.enable.dsl = 2
+
+params.id = ""
+params.fastqs = ""
+params.sample = ""
+params.transcriptome = ""
+
+process cellranger {
+
+	container "ghcr.io/helrick-embl/eipp-bioinformatics-nextflow/cellranger:1.0"
+	//container "/home/training/Documents/eipp-bioinformatics-nextflow/cellranger_1.0.sif"
+	memory "16 GB"
+
+	input:
+		val id
+		path fastqs
+		val sample
+		path transcriptome	
+	output:
+		path "outs/*"
+	
+	script:
+	"""
+	cellranger count \
+	--id=${id} --fastqs=${fastqs} --sample=${sample} \
+	--transcriptome=${transcriptome}
+	"""
+}
+
+workflow {
+	cellranger(params.id, params.fastqs, params.sample, params.transcriptome)
+}
+```
