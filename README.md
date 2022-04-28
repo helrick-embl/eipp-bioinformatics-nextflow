@@ -189,7 +189,7 @@ tar -zxvf refdata-cellranger-GRCh38-3.0.0.tar.gz
 ```
 We will run with singularity on the command-line first. First you should set your URI variable to point to the image that you've pushed to ghcr. In this example, a cellranger image:
 ```bash
-uri=ghcr.io/helrick-embl/eipp-bioinformatics-nextflow/cellranger:1.0
+uri=docker://ghcr.io/helrick-embl/eipp-bioinformatics-nextflow/cellranger:1.0
 ```
 
 We can then run the image with singularity via:
